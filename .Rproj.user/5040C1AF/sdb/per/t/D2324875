@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573848073947.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D2324875",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1573848073947,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "C83582FD",
+        "caption" : "sims2",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=sims2&cache_key=C83582FD",
+        "displayedObservations" : "100",
+        "environment" : "",
+        "object" : "sims2",
+        "preview" : "0",
+        "totalObservations" : "100",
+        "variables" : "4"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
