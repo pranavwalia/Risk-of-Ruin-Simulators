@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(ggplot2)\n####Outputs a dataFrame logging n trials of a bet using the Kelly Criterion\n#capital[double]: Starting value\n#p[double]: probability of success (passed as a percent eg. 1,2,50)\n#[trials]: sample size of trials\n#[odds]: The odds of the bet. 1:1 => you make back exactly what you bet. 2:1 => twice what you bet\n#kelly[boolean] value representing whether or not to use kelly criterion\nrunKellySim <- function(capital,p,trials,odds,kelly=TRUE,betPercent=.01) {\n  out <- data.frame(matrix(ncol = 2, nrow = 0))\n  cols <- c(\"Trials\",\"Capital\")\n  \n  for (i in 1:trials) {\n    moneyToBet = 0\n    #uses kelly formula to determine percentage of portfolio to bet\n    if (kelly) {\n      moneyToBet = (((odds * (p/100)) - (1 - (p/100)))/odds) * capital\n    } else {\n      moneyToBet = betPercent * capital\n    }\n    \n    #Random number to simulate bet outcome\n    t <- sample(1:100,1)\n    if (t <= p) {\n      capital <- capital + (odds * moneyToBet)\n    } else {\n      capital <- capital - moneyToBet\n    }\n    out <- rbind(out,c(i,capital))\n    \n    #If we run out of money, end the sim\n    if (capital <= 0) {\n      break\n    }\n  }\n  colnames(out) <- cols\n  out\n}\n\n\n###Returns the risk of ruin for a particular kelly simulation\n#sampleSize[int] how many kelly simulations to run\n#kelly: boolean value whether to use kelly method or not\nmeasureRisk <- function(sampleSize,capital,p,trials,odds,kelly,betPercent=.01) {\n  ruins <- 0\n  for (i in 1:sampleSize) {\n    \n    s <- c()\n    if (kelly) {\n      s <- runKellySim(capital,p,trials,odds)\n    } else {\n      s <- runKellySim(capital,p,trials,odds,FALSE,betPercent)\n    }\n    if (nrow(s) < trials) {\n      ruins <- ruins + 1\n    }\n    print(paste(\"Sim\",toString(i),\"Complete\"))\n  }\n  ruins/sampleSize\n}\n\n\n\nsimulation <- runKellySim(1000,51,10000,1)\nrisk <- measureRisk(100,1000,51,10000,1,TRUE)\n\nggplot() + geom_line(data=simulation,aes(x = simulation$Trials,y = simulation$Capital)) + xlab(\"Trials\") + ylab(\"Capital\")\n\n\n",
+    "created" : 1574049479731.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "720928634",
+    "id" : "8E52638",
+    "lastKnownWriteTime" : 1574053426,
+    "last_content_update" : 1574053426978,
+    "path" : "~/Documents/GitHub/Risk-of-Ruin-Simulators/KellyCritereonSimulator.R",
+    "project_path" : "KellyCritereonSimulator.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
