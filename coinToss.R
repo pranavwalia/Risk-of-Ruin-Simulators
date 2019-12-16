@@ -65,6 +65,7 @@ runSim <- function(a,b,s,w,l) {
 
 
 
+
 ##Runs n amount of simulations to determine P1 win $, P2 win$, Tie%, P2% advantage
 ##n: amount of sims to run
 #a: starting money
